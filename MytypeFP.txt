@@ -1,0 +1,136 @@
+#include <iostream>
+#include <fstream>
+#include <cstring>
+
+using std::cin;
+using std::cout;
+using std::fstream;
+using std::ios;
+using std::endl;
+
+class Engine
+{
+    char name[10] , department[10] , number[10];
+
+    public:
+
+    void read(){
+        cout << "Enter name : " << endl ;
+        cin >> name ;
+
+        cout << "Enter department : " << endl ;
+        cin >> department ;
+
+        cout << "Enter number : " << endl ;
+        cin >> number ;
+    }
+    void insert(){
+        int n;
+        cout << "Enter number of student : " << endl ;
+        cin >> n ;
+        fstream ofile1 , ofile2 ;
+        ofile1.open("My.txt",ios::out | ios::app);
+        ofile2.open("My1.txt",ios::out | ios::app);
+
+        for(int i = 0 ,k ;i < n;i++){
+
+            read();
+
+            ofile1 << name << '|' << department << '|' << number << '|' ;
+            ofile2 << name << '\n';
+            k = strlen(name) + strlen(department) + strlen(number) ; 
+            while(k < 27){
+                ofile1 << '!' ;
+                k++;
+            }
+            ofile1 << '\n' ;
+        }
+        ofile1.close();
+        ofile2.close();
+    }
+
+    void print(){
+        
+        fstream ifile;
+        ifile.open("My.txt",ios::in);
+
+        while(!ifile.eof()){
+            ifile.getline(name,10, '|');
+            ifile.getline(department,10, '|');
+            ifile.getline(number,10, '|');
+            ifile.ignore(30, '\n');
+
+            if(!ifile.eof()){
+                cout << "( " << name << ", " ;
+                cout << department << ", " ;
+                cout << number << " )" << endl;
+            }
+        }
+        cout << endl;
+    }
+
+    void search(){
+        fstream ifile;
+        char key[10];
+        cout << "Enter name :" << endl;
+        cin >> key;
+        ifile.open("My1.txt", ios::in);
+        int i;
+        for(i = 0;!ifile.eof();i++){
+            ifile.getline(name, 10 ,'\n');
+            if(strcmp(key ,name) == 0){
+                break;
+            }
+        }
+        if(ifile.eof() and strcmp(key ,name) != 0){
+            cout << "Name does not exist." << endl;
+            ifile.close();
+            return;
+        }
+        ifile.close();
+
+        ifile.open("My.txt", ios::in);
+        ifile.seekg(i*32);
+
+        ifile.getline(name, 10,'|');
+        ifile.getline(department, 10,'|');
+        ifile.getline(number, 10,'|');
+
+        cout << "( " << name << ", ";
+        cout << department << ", ";
+        cout << number << " )\n\n";
+
+        ifile.close();
+    }
+    
+
+    void run(){
+        char choise;
+        while(1){
+            cout << "Enter your choise : " << endl;
+            cout << "1. Insert\n2. Print all\n3. search\nAny other key to exit..." << endl ;
+            cin >> choise;
+            switch (choise)
+            {
+            case '1':
+                insert();
+                break;
+            case '2':
+                print();
+                break;
+            case '3':
+                search();
+                break;
+            default:
+                return;
+            }
+        }
+    }
+
+};
+
+int main(){
+    Engine engine;
+    engine.run();
+    return 0;
+}

@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using std::cout;
+using std::cin;
+using std::ios;
+using std::fstream;
+using std::string;
+using std::endl;
+
+class remover
+{
+    fstream file;
+    char buff[40];
+    char key[40];
+public:
+
+    remover(){
+        cout << "Enter input File name :";
+        cin >> buff;
+        file.open(buff,ios::in);
+    }
+
+    void run(){
+        cout << "Enter key to search for: ";
+		cin >> key;
+        while(!file.eof()){
+            file.getline(buff,45);
+            if(strstr(buff, key)){
+             // It is used to find the occurance of a substring in a string.
+                cout << "Key is found\n";
+				return;
+            }
+        }
+        cout << "Key not found\n";
+    }
+};
+
+int main(void){
+    remover remover;
+    remover.run();
+}

@@ -1,0 +1,191 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+int main(){
+    string data ;
+    cin>>data;
+    cout<<data;
+    cin>>data;
+    cout<<data;
+    return 0;
+}
+.............................
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+int main(){
+    string data ;
+    getline(cin,data);
+    cout<<data;
+    
+    return 0;
+}
+......................................
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
+using namespace std;
+int main(){
+    fstream file;
+    file.open("hello.txt",ios::in | ios::out );
+    if(!file.is_open()){
+        cout<<"Error file not open"<<endl;
+    }else{
+        cout<<"file open successfully"<<endl;
+        file.close();
+    }
+    return 0;
+}
+........................................................
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
+using namespace std;
+int main(){
+    /* ifstream input from file(read)
+    ofstream output from file (write)
+    fstream input (read) | output (write)
+    */
+    fstream file;
+    file.open("hello.txt",ios::in | ios::out );
+    if(!file.is_open()){
+        cout<<"Error file not open"<<endl;
+    }else{
+        
+        file<<"Abdullah"<<endl;
+        file<<"Gomaa"<<endl;
+        file<<"Abdullah"<<endl;
+        cout<<"file open successfully and check it"<<endl;
+        file.close();
+    }
+    return 0;
+}
+...................................................................
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
+using namespace std;
+int main(){
+    /* ifstream input from file(read)
+    ofstream output from file (write)
+    fstream input (read) | output (write)
+    */
+    fstream file;
+    file.open("hello.txt",ios::in );
+    if(!file.is_open()){
+        cout<<"Error file not open"<<endl;
+    }else{
+        string line;
+        cout<<"Reading from the file is :"<<endl;
+        getline(file,line);
+        cout<<line<<endl;
+        file.close();
+    }
+    return 0;
+}
+............................................................................
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
+using namespace std;
+
+void Reverse_stringg(string &str){
+    int n = str.length();
+    for(int i = 0;i < n/2;i++){
+        char temp = str[i];
+        str[i] = str[n-(i+1)];
+        str[n-(i+1)] = temp;
+    }
+}
+
+int main(){
+
+    /* ifstream input from file(read)
+    ofstream output from file (write)
+    fstream input (read) | output (write)
+    */
+
+    fstream file;
+    file.open("hello.txt",ios::in );
+    if(!file.is_open()){
+        cout<<"Error file not open"<<endl;
+    }else{
+        string line;
+        cout<<"Reading from the file is :"<<endl;
+        while (file.good())
+        {
+            getline(file,line);
+            Reverse_stringg(line);
+            cout<<line<<endl;
+        }
+        file.close();
+    }
+    return 0;
+}
+...................................................................................................
+
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
+using namespace std;
+
+void Reverse_stringg(string &str){
+    int n = str.length();
+    for(int i = 0;i < n/2;i++){
+        char temp = str[i];
+        str[i] = str[n-(i+1)];
+        str[n-(i+1)] = temp;
+    }
+}
+
+int main(){
+
+    /* ifstream input from file(read)
+    ofstream output from file (write)
+    fstream input (read) | output (write)
+    */
+
+    fstream file,output;
+    file.open("hello.txt",ios::in );
+    if(!file.is_open()){
+        cout<<"Error file not open"<<endl;
+    }else{
+        string line;
+        cout<<"Reading from the file is :"<<endl;
+        output.open("output.txt",ios::out );
+        while (file.good())
+        {
+            getline(file,line);
+            Reverse_stringg(line);
+            cout<<line<<endl;
+            output<<line<<endl;
+        }
+        file.close();
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

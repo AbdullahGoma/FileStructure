@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using std::cout;
+using std::cin;
+using std::ios;
+using std::fstream;
+using std::string;
+using std::endl;
+
+class remover
+{
+    fstream file;
+    char filename[40];
+    char buff[40];
+
+public:
+
+    remover(){
+        cout << "Enter input File name :";
+        cin >> filename;
+        file.open(filename,ios::in);
+    }
+
+    void run(){
+        fstream temp;
+        string line;
+        // int counter = 0;
+        // int line;
+        temp.open("temp.txt",ios::out);
+        cout<<"Enter line you want delete it :\n";
+        cin>>line;
+        while(!file.eof()){
+            file.getline(buff,45);
+            //counter++;
+            // if(counter!=line)
+            // {
+            //     temp<<buff<<endl;
+            // }
+            if(buff != line){
+                temp << buff << endl;
+            }
+        }
+        file.close();
+        temp.close();
+        remove(filename);
+        rename("temp.txt",filename);
+    }
+};
+
+int main(void){
+    remover remover;
+    remover.run();
+}
